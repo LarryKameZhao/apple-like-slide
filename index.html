@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>Apple like slide</title>
+</head>
+<body>
+
+        <div id="main">
+
+            <div id="gallery">
+                
+                <div id="slides">
+                
+                <div class="slide"><img src="img/sample_slides/macbook.jpg" width="920" height="400" /></div>
+                <div class="slide"><img src="img/sample_slides/iphone.jpg" width="920" height="400" /></div>
+                <div class="slide"><img src="img/sample_slides/imac.jpg" width="920" height="400" /></div>
+                
+                </div>
+                
+                <div id="menu">
+                
+                <ul>
+                    <li class="fbar">&nbsp;</li>
+                    <li class="menuItem"><a href=""><img src="img/sample_slides/thumb_macbook.png" /></a></li>
+                    <li class="menuItem"><a href=""><img src="img/sample_slides/thumb_iphone.png" /></a></li>
+                    <li class="menuItem"><a href=""><img src="img/sample_slides/thumb_imac.png" /></a></li>
+                </ul>
+                
+                </div>
+                
+            </div>
+                
+         </div>
+
+        <script>
+
+            $(document).ready(function(){
+    
+
+                var totWidth=0;
+                var positions = new Array();
+
+                $('#slides .slide').each(function(i){
+                        positions[i]= totWidth;
+                        totWidth += $(this).width();
+                        if(!$(this).width()){
+                             
+                                alert("图片大小要一致");
+                                return false;
+                             }
+                });
+                        
+                $('#slides').width(totWidth);
+                $('#menu ul li a').click(function(e){
+
+                $('li.menuItem').removeClass('act').addClass('inact');
+                $(this).parent().addClass('act');
+
+                var pos = $(this).parent().prevAll('.menuItem').length;
+
+                $('#slides').stop().animate({marginLeft:-positions[pos]+'px'},450);
+                                e.preventDefault();
+                    });
+
+                $('#menu ul li.menuItem:first').addClass('act').siblings().addClass('inact');
+            });
+
+    </script>
+    
+</body>
+</html>
